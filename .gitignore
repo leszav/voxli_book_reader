@@ -1,3 +1,1 @@
-# Файлы только для локальной разработки — не входят в релизный пакет
-anti_overengineering_prompt.md
-INSTALL-TEST.md
+.tmp/
