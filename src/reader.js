@@ -13,6 +13,7 @@ const state = {
   settings: { ...DEFAULT_SETTINGS },
   activePanel: null,
   autoHideTimer: null,
+  panelHovered: false,
   headerForcedVisible: false,
   chapterTransitionUntil: 0,
   // Флаг: true на один кадр после commitSettings, чтобы скролл от перекомпоновки
@@ -189,6 +190,8 @@ function closePanels() {
 
 function schedulePanelAutoHide() {
   clearPanelTimer();
+  // Если курсор над панелью — не запускаем таймер; он запустится при уходе курсора
+  if (state.panelHovered) return;
   state.autoHideTimer = setTimeout(() => {
     closePanels();
   }, 5000);
@@ -589,6 +592,22 @@ function bindHeaderHoverHandlers() {
   elements.header.addEventListener("mouseleave", () => forceHeaderVisible(false));
 }
 
+function bindPanelHoverHandlers() {
+  const panels = [elements.tocPanel, elements.settingsPanel];
+  panels.forEach((panel) => {
+    panel.addEventListener("mouseenter", () => {
+      // Курсор зашёл на панель — останавливаем таймер автоскрытия
+      state.panelHovered = true;
+      clearPanelTimer();
+    });
+    panel.addEventListener("mouseleave", () => {
+      // Курсор ушёл с панели — запускаем обратный отсчёт
+      state.panelHovered = false;
+      if (state.activePanel) schedulePanelAutoHide();
+    });
+  });
+}
+
 function bindOutsidePanelCloseHandler() {
   document.addEventListener("click", (event) => {
     if (!state.activePanel) return;
@@ -629,6 +648,7 @@ function bindReaderEvents() {
   bindReaderScrollHandlers();
   bindKeyboardNavigation();
   bindHeaderHoverHandlers();
+  bindPanelHoverHandlers();
   bindOutsidePanelCloseHandler();
   bindUnloadFlush();
 }
