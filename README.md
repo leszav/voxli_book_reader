@@ -63,7 +63,7 @@ This project is plain JavaScript (no build step required).
 Create ZIP from the project root:
 
 ```bash
-zip -r extension-release/voxli-book-reader-opera-v0.9.25-2026-03-05.zip \
+zip -r extension-release/voxli-book-reader-opera-v0.9.26-2026-03-05.zip \
   manifest.json options.html popup.html reader.html styles.css _locales icons src
 ```
 
@@ -73,4 +73,4 @@ Upload the generated ZIP to Opera Add-ons and provide this public source reposit
 
 ## Version
 
-Current extension version: `0.9.25`
+Current extension version: `0.9.26`

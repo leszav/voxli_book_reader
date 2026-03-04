@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "Voxli Book Reader" },
-  "extensionDescription": { "message": "Ouvre EPUB/FB2 dans le navigateur et enregistre la position de lecture localement." },
+  "extensionDescription": { "message": "Lisez des livres EPUB et FB2 directement dans Opera. Cliquez sur l’icône, choisissez un fichier — un onglet de lecture s’ouvre avec thèmes, polices, table des matières et suivi de progression." },
   "extensionActionTitle": { "message": "Ouvrir Voxli Book Reader" },
   "popupTitle": { "message": "Voxli Book Reader" },
   "openBook": { "message": "Ouvrir un livre" },

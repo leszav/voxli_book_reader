@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "Voxli Book Reader" },
-  "extensionDescription": { "message": "Читалка EPUB/FB2 с локальным сохранением позиции чтения." },
+  "extensionDescription": { "message": "Читайте EPUB и FB2 книги прямо в Opera. Нажмите иконку, выберите файл — откроется читалка с темами, настройками шрифта, оглавлением и прогрессом чтения." },
   "extensionActionTitle": { "message": "Открыть Voxli Book Reader" },
   "popupTitle": { "message": "Voxli Book Reader" },
   "openBook": { "message": "Открыть книгу" },

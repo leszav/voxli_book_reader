@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "Voxli Book Reader" },
-  "extensionDescription": { "message": "在瀏覽器中開啟 EPUB/FB2，並在本機儲存閱讀位置。" },
+  "extensionDescription": { "message": "直接在 Opera 中開讀本地 EPUB 和 FB2 書籍。點擊圖示，選擇檔案，開啟主題、字型設定、目錄與阅讀進度追蹤的讀取頁面。" },
   "extensionActionTitle": { "message": "開啟 Voxli Book Reader" },
   "popupTitle": { "message": "Voxli Book Reader" },
   "openBook": { "message": "開啟書籍" },
