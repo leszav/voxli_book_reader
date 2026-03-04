@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Reader</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="reader-light">
+    <div id="header-hover-zone" class="header-hover-zone" aria-hidden="true"></div>
+
+    <header class="reader-header">
+      <div class="left-group">
+        <button id="pick-file" class="btn primary" data-i18n="openBook">Open Book</button>
+        <button id="open-last-in-reader" class="btn" data-i18n="openLastBook">Open Last Book</button>
+      </div>
+      <div class="center-group">
+        <h1 id="book-title" class="book-title" data-i18n="noBookOpened">No book opened</h1>
+      </div>
+      <div class="right-group">
+        <button id="toggle-toc" class="btn" data-i18n="tableOfContents">Contents</button>
+        <button id="toggle-settings" class="btn" data-i18n="textSettings">Text Settings</button>
+        <button id="about-btn" class="btn" data-i18n="aboutProject">About</button>
+      </div>
+    </header>
+
+    <input id="file-input" type="file" accept=".epub,.fb2" hidden />
+
+    <main class="reader-layout">
+      <aside id="toc-panel" class="toc-panel hidden" aria-label="Table of contents">
+        <h2 data-i18n="tableOfContents">Contents</h2>
+        <ol id="toc-list" class="toc-list"></ol>
+      </aside>
+
+      <aside id="settings-panel" class="settings-panel hidden" aria-label="Text settings">
+        <h2 data-i18n="textSettings">Text Settings</h2>
+
+        <label class="setting">
+          <span data-i18n="fontSize">Font Size</span>
+          <input id="font-size" type="range" min="12" max="32" step="1" />
+          <strong id="font-size-value"></strong>
+        </label>
+
+        <label class="setting">
+          <span data-i18n="fontFamily">Font Family</span>
+          <select id="font-family">
+            <option value="Georgia">Georgia</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="system-ui">System</option>
+          </select>
+        </label>
+
+        <label class="setting">
+          <span data-i18n="lineHeight">Line Height</span>
+          <input id="line-height" type="range" min="1.2" max="2.5" step="0.1" />
+          <strong id="line-height-value"></strong>
+        </label>
+
+        <label class="setting">
+          <span data-i18n="contentWidth">Content Width</span>
+          <input id="content-width" type="range" min="60" max="95" step="1" />
+          <strong id="content-width-value"></strong>
+        </label>
+
+        <label class="setting">
+          <span data-i18n="textAlign">Text Align</span>
+          <select id="text-align">
+            <option value="justify" data-i18n="alignJustify">Justify</option>
+            <option value="left" data-i18n="alignLeft">Left</option>
+          </select>
+        </label>
+
+        <label class="setting">
+          <span data-i18n="theme">Theme</span>
+          <select id="theme">
+            <option value="light" data-i18n="themeLight">Light</option>
+            <option value="dark" data-i18n="themeDark">Dark</option>
+            <option value="sepia" data-i18n="themeSepia">Sepia</option>
+          </select>
+        </label>
+
+        <button id="reset-settings" class="btn" data-i18n="resetSettings">Reset settings</button>
+      </aside>
+
+      <section class="content-wrap">
+        <article id="reader-content" class="reader-content"></article>
+      </section>
+    </main>
+
+    <dialog id="about-modal" class="about-modal" aria-label="About project">
+      <div class="about-modal-box">
+        <h2 data-i18n="aboutProject">About</h2>
+        <p class="about-desc" data-i18n="aboutDescription"></p>
+        <div class="about-contacts">
+          <a href="https://voxlibris.ru" target="_blank" rel="noreferrer">voxlibris.ru</a>
+          <span>admin@voxli.ru</span>
+          <a href="https://t.me/voxli_ru" target="_blank" rel="noreferrer">t.me/voxli_ru</a>
+        </div>
+        <hr class="about-divider" />
+        <div class="about-modal-actions">
+          <button id="about-close" class="btn" data-i18n="aboutClose">Close</button>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="src/vendor/jszip.min.js"></script>
+    <script type="module" src="src/reader.js"></script>
+  </body>
+</html>

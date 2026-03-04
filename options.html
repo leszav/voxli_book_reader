@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Options</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="popup-body">
+    <main class="popup options-page">
+      <h1 data-i18n="optionsTitle">Extension language</h1>
+
+      <label class="setting">
+        <span data-i18n="languageMode">Language mode</span>
+        <select id="locale-mode">
+          <option value="auto" data-i18n="languageAuto">Auto (browser locale)</option>
+          <option value="manual" data-i18n="languageManual">Manual</option>
+        </select>
+      </label>
+
+      <label class="setting">
+        <span data-i18n="languageSelect">Language</span>
+        <select id="locale-select">
+          <option value="en">English</option>
+          <option value="ru">Русский</option>
+          <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="zh_Hans">简体中文</option>
+          <option value="zh_Hant">繁體中文</option>
+        </select>
+      </label>
+
+      <button id="save-options" class="btn primary" data-i18n="saveSettings">Save</button>
+      <p id="options-status" class="status"></p>
+    </main>
+
+    <script type="module" src="src/options.js"></script>
+  </body>
+</html>
