@@ -4,11 +4,17 @@ Voxli Book Reader is a lightweight browser extension for reading local **EPUB** 
 
 ## Promo & Screenshots
 
-![Opera promo](store-assets/opera-promo-300x188.png)
+<p align="center">
+  <img src="store-assets/opera-promo-300x188.png" alt="Opera promo" />
+</p>
 
-![Reader screenshot 1](store-assets/1.png)
+<p align="center">
+  <img src="store-assets/1.png" alt="Reader screenshot 1" />
+</p>
 
-![Reader screenshot 2](store-assets/2.png)
+<p align="center">
+  <img src="store-assets/2.png" alt="Reader screenshot 2" />
+</p>
 
 ## Features
 
