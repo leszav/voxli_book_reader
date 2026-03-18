@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Pick a book</title>
+    <style>
+      body { font-family: system-ui, sans-serif; display:flex; align-items:center; justify-content:center; height:100vh; margin:0 }
+      .msg { text-align:center }
+      .msg p { margin:8px 0 }
+    </style>
+  </head>
+  <body>
+    <div class="msg">
+      <p>Please select a book file (EPUB or FB2)</p>
+    </div>
+    <input id="picker-file-input" type="file" accept=".epub,.fb2" hidden />
+    <script type="module" src="src/filepicker.js"></script>
+  </body>
+</html>

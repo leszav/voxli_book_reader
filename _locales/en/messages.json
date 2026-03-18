@@ -4,6 +4,7 @@
   "extensionActionTitle": { "message": "Open Voxli Book Reader" },
   "popupTitle": { "message": "Voxli Book Reader" },
   "openBook": { "message": "Open Book" },
+  "openNewBook": { "message": "Open New Book" },
   "openLastBook": { "message": "Open Last Book" },
   "openSettings": { "message": "Language & Settings" },
   "statusIdle": { "message": "Ready" },
@@ -44,4 +45,8 @@
   "aboutProject": { "message": "About" },
   "aboutDescription": { "message": "E-book reader extension by the developer of the VoxLibris platform" },
   "aboutClose": { "message": "Close" }
+  ,
+  "linksTitle": { "message": "Links" },
+  "developerSite": { "message": "Developer site" },
+  "extensionSite": { "message": "Extension site" }
 }
