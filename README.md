@@ -12,7 +12,7 @@ Voxli Book Reader is a lightweight browser extension for reading local **EPUB** 
 
 ## Features
 
-- Open local `.epub` and `.fb2` books from the popup.
+- Open local `.epub` and `.fb2` books.
 - Continue reading the last opened book.
 - Table of contents navigation and chapter switching.
 - Reading progress tracking per book.
@@ -44,10 +44,22 @@ The extension requests only:
 ## Project Structure
 
 - `manifest.json` — extension manifest (MV3).
-- `popup.html`, `reader.html`, `options.html` — extension pages.
+- `reader.html` — reader page.
+- `filepicker.html` — lightweight file picker window opened from the toolbar button when there is no recent book.
+- `options.html` — extension options.
 - `src/` — core logic (reader, settings, storage, parsers).
+- `src/background.js` — handles toolbar button click.
 - `_locales/` — localization messages.
 - `icons/` — extension icons.
+
+## Third-party libraries
+
+This extension bundles the following third-party library as a vendored file:
+
+- **JSZip v3.10.1** — used for reading `.epub` archives locally.
+  - File: `src/vendor/jszip.min.js`
+  - Source: https://stuk.github.io/jszip/
+  - License: MIT or GPLv3 (see library header and upstream license text)
 
 ## Development
 
@@ -63,8 +75,8 @@ This project is plain JavaScript (no build step required).
 Create ZIP from the project root:
 
 ```bash
-zip -r extension-release/voxli-book-reader-opera-v0.9.26-2026-03-05.zip \
-  manifest.json options.html popup.html reader.html styles.css _locales icons src
+zip -r extension-release/voxli-book-reader-opera-v1.0.0.zip \
+  manifest.json options.html filepicker.html reader.html styles.css _locales icons src
 ```
 
 Upload the generated ZIP to Opera Add-ons and provide this public source repository link:
@@ -73,4 +85,4 @@ Upload the generated ZIP to Opera Add-ons and provide this public source reposit
 
 ## Version
 
-Current extension version: `0.9.26`
+Current extension version: `1.0.0`

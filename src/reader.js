@@ -631,16 +631,16 @@ function bindUnloadFlush() {
 
 
 function bindReaderEvents() {
-  elements.pickFile.addEventListener("click", () => elements.fileInput.click());
-  elements.fileInput.addEventListener("change", handleFileInputChange);
+  if (elements.pickFile) elements.pickFile.addEventListener("click", () => elements.fileInput?.click());
+  if (elements.fileInput) elements.fileInput.addEventListener("change", handleFileInputChange);
 
-  elements.openLast.addEventListener("click", handleOpenLastClick);
+  if (elements.openLast) elements.openLast.addEventListener("click", handleOpenLastClick);
 
-  elements.toggleSettings.addEventListener("click", () => {
+  if (elements.toggleSettings) elements.toggleSettings.addEventListener("click", () => {
     togglePanel("settings");
   });
 
-  elements.toggleToc.addEventListener("click", () => {
+  if (elements.toggleToc) elements.toggleToc.addEventListener("click", () => {
     togglePanel("toc");
   });
 
@@ -668,7 +668,11 @@ async function maybeAutoActionFromUrl() {
   }
 
   if (params.get("pick") === "1") {
-    elements.pickFile?.focus();
+    if (elements.fileInput) {
+      elements.fileInput.click();
+    } else {
+      elements.pickFile?.focus();
+    }
     return;
   }
 
@@ -678,13 +682,17 @@ async function maybeAutoActionFromUrl() {
 }
 
 function bindAbout() {
+  if (!elements.aboutBtn || !elements.aboutModal) return;
+
   elements.aboutBtn.addEventListener("click", () => {
     elements.aboutModal.showModal();
   });
 
-  elements.aboutClose.addEventListener("click", () => {
-    elements.aboutModal.close();
-  });
+  if (elements.aboutClose) {
+    elements.aboutClose.addEventListener("click", () => {
+      elements.aboutModal.close();
+    });
+  }
 
   elements.aboutModal.addEventListener("cancel", (event) => {
     event.preventDefault();
