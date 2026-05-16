@@ -91,4 +91,4 @@ Upload the generated ZIP to Opera Add-ons and provide this public source reposit
 
 ## Version
 
-Current extension version: `1.0.0`
+Current extension version: `1.0.9`

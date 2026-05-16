@@ -43,5 +43,8 @@
   "cacheOutdated": { "message": "已保存图书缓存已过期。请通过“打开书籍”重新打开文件。" },
   "aboutProject": { "message": "关于" },
   "aboutDescription": { "message": "由 VoxLibris 平台开发者提供的电子书阅读扩展" },
-  "aboutClose": { "message": "关闭" }
+  "aboutClose": { "message": "关闭" },
+  "selectBookFile": { "message": "请选择书籍文件（EPUB 或 FB2）" },
+  "selectFile": { "message": "选择文件" },
+  "loadingBook": { "message": "正在加载书籍，请稍候..." }
 }

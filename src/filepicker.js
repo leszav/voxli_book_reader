@@ -1,4 +1,5 @@
 import { STORAGE_KEYS, storageSet } from "./storage.js";
+import { initI18n, applyI18n } from "./i18n.js";
 
 function arrayBufferToBase64(buffer) {
   const bytes = new Uint8Array(buffer);
@@ -23,13 +24,28 @@ async function toPendingBookPayload(file) {
   };
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function showLoading() {
+  const mainContainer = document.getElementById("main-container");
+  const loadingContainer = document.getElementById("loading-container");
+  if (mainContainer) mainContainer.classList.add("hidden");
+  if (loadingContainer) loadingContainer.classList.add("active");
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // Initialize localization
+  await initI18n();
+  applyI18n();
+
   const input = document.getElementById("picker-file-input");
+  const selectBtn = document.getElementById("select-file-btn");
   if (!input) return;
 
   input.addEventListener("change", async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
+
+    // Show loading spinner immediately
+    showLoading();
 
     try {
       const payload = await toPendingBookPayload(file);
@@ -43,6 +59,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Trigger file picker immediately (user gesture originates from action click)
-  input.click();
+  // Handle button click to open file picker
+  if (selectBtn) {
+    selectBtn.addEventListener("click", () => {
+      input.click();
+    });
+  }
 });

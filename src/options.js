@@ -24,6 +24,11 @@ async function saveState() {
     await storageSet(STORAGE_KEYS.localeMode, modeSelect.value);
     await storageSet(STORAGE_KEYS.localeOverride, localeSelect.value);
     statusNode.textContent = t("settingsSaved");
+    
+    // Auto-close after 2 seconds if window was opened from popup
+    setTimeout(() => {
+      window.close();
+    }, 2000);
   } catch (err) {
     statusNode.textContent = t(err.message) || err.message;
   }

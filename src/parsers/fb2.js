@@ -128,9 +128,33 @@ const elementRenderers = {
   emphasis: (node, context) => renderInlineNode(node, "emphasis", context),
   em: (node, context) => renderInlineNode(node, "em", context),
   i: (node, context) => renderInlineNode(node, "i", context),
+  strikethrough: (node, context) => {
+    const wrapped = renderChildren(node, context);
+    return `<s>${wrapped}</s>`;
+  },
+  sub: (node, context) => {
+    const wrapped = renderChildren(node, context);
+    return `<sub>${wrapped}</sub>`;
+  },
+  sup: (node, context) => {
+    const wrapped = renderChildren(node, context);
+    return `<sup>${wrapped}</sup>`;
+  },
+  code: (node, context) => {
+    const wrapped = renderChildren(node, context);
+    return `<code>${wrapped}</code>`;
+  },
+  cite: (node, context) => {
+    const wrapped = renderChildren(node, context);
+    return `<cite>${wrapped}</cite>`;
+  },
   "empty-line": () => "<br/>",
   image: (node, context) => renderImageNode(node, context),
   a: (node, context) => renderLinkNode(node, context),
+  table: (node, context) => `<table>${renderChildren(node, context)}</table>`,
+  tr: (node, context) => `<tr>${renderChildren(node, context)}</tr>`,
+  td: (node, context) => `<td>${renderChildren(node, context)}</td>`,
+  th: (node, context) => `<th>${renderChildren(node, context)}</th>`,
 };
 
 function renderNode(node, context) {

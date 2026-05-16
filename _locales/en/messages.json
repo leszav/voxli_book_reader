@@ -44,9 +44,11 @@
   "cacheOutdated": { "message": "Saved book cache is outdated. Please reopen the file via Open Book." },
   "aboutProject": { "message": "About" },
   "aboutDescription": { "message": "E-book reader extension by the developer of the VoxLibris platform" },
-  "aboutClose": { "message": "Close" }
-  ,
+  "aboutClose": { "message": "Close" },
   "linksTitle": { "message": "Links" },
   "developerSite": { "message": "Developer site" },
-  "extensionSite": { "message": "Extension site" }
+  "extensionSite": { "message": "Extension site" },
+  "selectBookFile": { "message": "Please select a book file (EPUB or FB2)" },
+  "selectFile": { "message": "Select File" },
+  "loadingBook": { "message": "Loading book, please wait..." }
 }

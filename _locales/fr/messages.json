@@ -43,5 +43,8 @@
   "cacheOutdated": { "message": "Le cache du livre enregistré est obsolète. Veuillez rouvrir le fichier via « Ouvrir un livre »." },
   "aboutProject": { "message": "À propos" },
   "aboutDescription": { "message": "Extension de lecture par le développeur de la plateforme VoxLibris" },
-  "aboutClose": { "message": "Fermer" }
+  "aboutClose": { "message": "Fermer" },
+  "selectBookFile": { "message": "Veuillez sélectionner un fichier de livre (EPUB ou FB2)" },
+  "selectFile": { "message": "Sélectionner un fichier" },
+  "loadingBook": { "message": "Chargement du livre, veuillez patienter..." }
 }

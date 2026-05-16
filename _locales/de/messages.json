@@ -43,5 +43,8 @@
   "cacheOutdated": { "message": "Der gespeicherte Buch-Cache ist veraltet. Bitte öffnen Sie die Datei erneut über „Buch öffnen“." },
   "aboutProject": { "message": "Über das Projekt" },
   "aboutDescription": { "message": "E-Book-Leseerweiterung vom Entwickler der VoxLibris-Plattform" },
-  "aboutClose": { "message": "Schließen" }
+  "aboutClose": { "message": "Schließen" },
+  "selectBookFile": { "message": "Bitte wählen Sie eine Buchdatei (EPUB oder FB2) aus" },
+  "selectFile": { "message": "Datei auswählen" },
+  "loadingBook": { "message": "Buch wird geladen, bitte warten..." }
 }

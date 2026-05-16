@@ -219,6 +219,34 @@ function parseNcxNavMap(tocDoc) {
   return ncxDirectChildren(navMap, "navpoint").map(parseNavPoint);
 }
 
+// EPUB3 nav.xhtml parser
+function parseNavXhtml(navDoc) {
+  const tocNav = navDoc.querySelector('nav[epub\\:type="toc"], nav#toc');
+  if (!tocNav) return [];
+
+  function parseOl(ol, depth = 0) {
+    const items = [];
+    const lis = ol?.querySelectorAll(":scope > li") || [];
+    for (const li of lis) {
+      const anchor = li.querySelector(":scope > a, :scope > span");
+      if (!anchor) continue;
+      const label = anchor.textContent?.trim() || "";
+      const href = anchor.getAttribute("href") || "";
+      const hashIdx = href.indexOf("#");
+      const navFile = hashIdx >= 0 ? href.slice(0, hashIdx) : href;
+      const fragment = hashIdx >= 0 ? href.slice(hashIdx + 1) : null;
+
+      const childOl = li.querySelector(":scope > ol");
+      const children = childOl ? parseOl(childOl, depth + 1) : [];
+      items.push({ label, navFile, fragment, children });
+    }
+    return items;
+  }
+
+  const rootOl = tocNav.querySelector(":scope > ol");
+  return parseOl(rootOl, 0);
+}
+
 function flattenNavTree(navPoints, partTitle = "") {
   const result = [];
   for (const np of navPoints) {
@@ -273,7 +301,8 @@ function buildManifestMap(opfDoc) {
     const id = item.getAttribute("id");
     const href = item.getAttribute("href");
     const mediaType = item.getAttribute("media-type") || "";
-    if (id && href) manifestMap.set(id, { href, mediaType });
+    const properties = item.getAttribute("properties") || "";
+    if (id && href) manifestMap.set(id, { href, mediaType, properties });
   });
   return manifestMap;
 }
@@ -285,9 +314,23 @@ function buildSpineRefs(opfDoc) {
 }
 
 function resolveTocPath(opfDoc, manifestMap, opfPath) {
+  // EPUB2: spine toc attribute
   const tocIdRef = xmlFindFirst(opfDoc, "spine")?.getAttribute("toc");
-  const tocHref = tocIdRef ? manifestMap.get(tocIdRef)?.href : null;
-  return tocHref ? normalizePath(opfPath, tocHref) : null;
+  if (tocIdRef) {
+    const tocHref = manifestMap.get(tocIdRef)?.href;
+    if (tocHref) return normalizePath(opfPath, tocHref);
+  }
+
+  // EPUB3: find nav item in manifest
+  const navItem = Array.from(manifestMap.values()).find((item) => {
+    // Check for nav property or nav.xhtml/html filename
+    const props = (item.properties || "").toLowerCase();
+    const href = item.href.toLowerCase();
+    return props.includes("nav") || href === "nav.xhtml" || href === "nav.html";
+  });
+  if (navItem) return normalizePath(opfPath, navItem.href);
+
+  return null;
 }
 
 async function getOrLoadChapterDoc(fileDocCache, zip, chapterPath) {
@@ -335,8 +378,21 @@ async function parseTocDrivenChapters(zip, opfPath, tocPath) {
   if (!tocFile) return [];
 
   const tocXml = await tocFile.async("string");
-  const tocDoc = new DOMParser().parseFromString(tocXml, "application/xml");
-  const navItems = flattenNavTree(parseNcxNavMap(tocDoc));
+  let navItems = [];
+
+  // Determine if it's NCX (EPUB2) or Nav XHTML (EPUB3)
+  const isNavXhtml = tocPath.toLowerCase().endsWith(".xhtml") || tocPath.toLowerCase().endsWith(".html");
+  
+  if (isNavXhtml) {
+    // EPUB3: parse nav.xhtml
+    const navDoc = new DOMParser().parseFromString(tocXml, "text/html");
+    navItems = flattenNavTree(parseNavXhtml(navDoc));
+  } else {
+    // EPUB2: parse toc.ncx
+    const tocDoc = new DOMParser().parseFromString(tocXml, "application/xml");
+    navItems = flattenNavTree(parseNcxNavMap(tocDoc));
+  }
+
   if (navItems.length === 0) return [];
 
   const chapters = [];

@@ -363,23 +363,29 @@ async function openLastBook() {
     return;
   }
 
-  state.book = {
-    id: cached.id,
-    title: cached.title,
-    format: cached.format,
-    chapters: cached.chapters,
-  };
+  showLoadingOverlay();
 
-  state.book = withBookMetrics(state.book);
+  try {
+    state.book = {
+      id: cached.id,
+      title: cached.title,
+      format: cached.format,
+      chapters: cached.chapters,
+    };
 
-  elements.bookTitle.textContent = state.book.title;
-  renderToc();
-  const savedProgress = await loadProgress(state.book.id);
-  if (savedProgress?.currentPosition?.chapter) {
-    const chapterIndex = clamp(savedProgress.currentPosition.chapter - 1, 0, state.book.chapters.length - 1);
-    renderChapter(chapterIndex, savedProgress.currentPosition.scrollTop || 0);
-  } else {
-    renderChapter(0, 0);
+    state.book = withBookMetrics(state.book);
+
+    elements.bookTitle.textContent = state.book.title;
+    renderToc();
+    const savedProgress = await loadProgress(state.book.id);
+    if (savedProgress?.currentPosition?.chapter) {
+      const chapterIndex = clamp(savedProgress.currentPosition.chapter - 1, 0, state.book.chapters.length - 1);
+      renderChapter(chapterIndex, savedProgress.currentPosition.scrollTop || 0);
+    } else {
+      renderChapter(0, 0);
+    }
+  } finally {
+    hideLoadingOverlay();
   }
 }
 
@@ -453,9 +459,21 @@ function bindSettings() {
   });
 }
 
+function showLoadingOverlay() {
+  const overlay = document.getElementById("loading-overlay");
+  if (overlay) overlay.classList.remove("hidden");
+}
+
+function hideLoadingOverlay() {
+  const overlay = document.getElementById("loading-overlay");
+  if (overlay) overlay.classList.add("hidden");
+}
+
 async function handleFileInputChange(event) {
   const file = event.target.files?.[0];
   if (!file) return;
+
+  showLoadingOverlay();
 
   try {
     await openBookFromFile(file);
@@ -463,6 +481,8 @@ async function handleFileInputChange(event) {
     const rawMsg = error instanceof Error ? error.message : String(error);
     const localizedMsg = t(rawMsg) || rawMsg;
     alert(`${t("openFailed")}: ${localizedMsg}`);
+  } finally {
+    hideLoadingOverlay();
   }
 }
 
@@ -476,7 +496,7 @@ async function handleOpenLastClick() {
   }
 }
 
-function fileFromPendingPayload(payload) {
+async function fileFromPendingPayload(payload) {
   const rawBase64 = String(payload?.dataBase64 || "").trim();
   if (!rawBase64) return null;
 
@@ -498,7 +518,7 @@ async function openPendingBookFromStorage() {
   if (!payload) return false;
 
   await storageRemove(STORAGE_KEYS.pendingBookUpload);
-  const pendingFile = fileFromPendingPayload(payload);
+  const pendingFile = await fileFromPendingPayload(payload);
   if (!pendingFile) return false;
   await openBookFromFile(pendingFile);
   return true;
@@ -657,12 +677,15 @@ async function maybeAutoActionFromUrl() {
   const params = new URLSearchParams(location.search);
 
   if (params.get("pending") === "1") {
+    showLoadingOverlay();
     try {
       await openPendingBookFromStorage();
     } catch (error) {
       const rawMsg = error instanceof Error ? error.message : String(error);
       const localizedMsg = t(rawMsg) || rawMsg;
       alert(`${t("openFailed")}: ${localizedMsg}`);
+    } finally {
+      hideLoadingOverlay();
     }
     return;
   }

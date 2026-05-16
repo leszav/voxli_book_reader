@@ -44,9 +44,11 @@
   "cacheOutdated": { "message": "Кэш сохранённой книги устарел. Откройте файл заново через «Открыть книгу»." },
   "aboutProject": { "message": "О проекте" },
   "aboutDescription": { "message": "Расширение для чтения электронных книг от разработчика платформы VoxLibris" },
-  "aboutClose": { "message": "Закрыть" }
-  ,
+  "aboutClose": { "message": "Закрыть" },
   "linksTitle": { "message": "Ссылки" },
   "developerSite": { "message": "Сайт разработчика" },
-  "extensionSite": { "message": "Сайт расширения" }
+  "extensionSite": { "message": "Сайт расширения" },
+  "selectBookFile": { "message": "Пожалуйста, выберите файл книги (EPUB или FB2)" },
+  "selectFile": { "message": "Выбрать файл" },
+  "loadingBook": { "message": "Загрузка книги, пожалуйста подождите..." }
 }
